@@ -1,4 +1,5 @@
-var http = require('http');
+var http = require('http'),
+	fs = require('fs');
 
 http.createServer(function (req, res) {
 	filename = './homepage.html'
