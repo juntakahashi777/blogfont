@@ -1,5 +1,18 @@
 var http = require('http'),
-	fs = require('fs');
+	fs = require('fs'),
+	MongoClient = require('mongodb').MongoClient,
+	ObjectId = require('mongodb').ObjectID,
+	assert = require('assert'),
+	url = 'mongodb://localhost:27017/test';
+MongoClient.connect(url, function(err, db) {
+	assert.equal(null, err);
+	console.log('connected to mongodb');
+	db.test.insert(
+	{
+		item: "abc"
+	});
+	db.close();
+});
 
 http.createServer(function (req, res) {
 	filename = './homepage.html'
