@@ -9,6 +9,7 @@ var sys = require('sys'),
 	assert = require('assert'),
 	mongo_url = 'mongodb://localhost:27017/test';
 var app = express();
+app.use("/handlers.js", express.static('handlers.js'));
 
 MongoClient.connect(mongo_url, function(err, db) {
 	assert.equal(null, err);
@@ -36,13 +37,6 @@ app.get('/', function(req, res) {
 		res.end();
 	});
 });
-app.get('/handlers.js', function(req, res) {
-	fs.readFile('handlers.js', function(err, data) {
-		if (err) {
-			res.send(err);
-		}
-		res.send(data);
-	});
-});
+
 app.listen(8000, 'localhost');
 console.log('Server running at http://127.0.0.1:8000/');
