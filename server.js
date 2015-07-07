@@ -1,21 +1,28 @@
-var http = require('http'),
+var sys = require('sys'),
+	http = require('http'),
+	path = require('path'),
+	url = require('url'),
 	fs = require('fs'),
+	express = require('express'),
 	MongoClient = require('mongodb').MongoClient,
 	ObjectId = require('mongodb').ObjectID,
 	assert = require('assert'),
-	url = 'mongodb://localhost:27017/test';
-MongoClient.connect(url, function(err, db) {
+	mongo_url = 'mongodb://localhost:27017/test';
+var app = express();
+
+MongoClient.connect(mongo_url, function(err, db) {
 	assert.equal(null, err);
 	console.log('connected to mongodb');
-	db.test.insert(
+	db.collection('test').insert(
 	{
 		item: "abc"
 	});
 	db.close();
 });
 
-http.createServer(function (req, res) {
-	filename = './homepage.html'
+app.get('/', function(req, res) {
+	filename = 'homepage.html';
+
 	fs.readFile(filename, 'binary', function(err, file) {
 		if (err)
 		{
@@ -28,6 +35,7 @@ http.createServer(function (req, res) {
 		res.write(file, 'binary');
 		res.end();
 	});
+});
 
-}).listen(1337, '127.0.0.1');
-console.log('Server running at http://127.0.0.1:1337/');
+app.listen(8000, 'localhost');
+console.log('Server running at http://127.0.0.1:8000/');
