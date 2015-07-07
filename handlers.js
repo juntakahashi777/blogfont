@@ -1,5 +1,5 @@
-// $('submitPost').click(function() {
-// 	alert('hello');
-// });
-
-alert('hello');
+$(document).ready(function() {
+	$('#newPost').on('submit', function() {
+		alert('hello');
+	});
+});
