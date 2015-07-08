@@ -10,10 +10,6 @@ var sys = require('sys'),
 	mongo_url = 'mongodb://localhost:27017/test';
 var app = express();
 app.use("/handlers.js", express.static('handlers.js'));
-app.use(function(req,res,next){
-	req.db = db;
-	next();
-});
 
 MongoClient.connect(mongo_url, function(err, db) {
 	assert.equal(null, err);
