@@ -18,8 +18,8 @@ MongoClient.connect(mongo_url, function(err, db) {
 	// {
 	// 	item: "abc"
 	// });
-	var myCursor = db.collection('test').find({},{item:1}).limit(1);
-	console.log(myCursor.objsLeftInBatch());
+	// var myCursor = db.collection('test').find({},{item:1}).limit(1);
+	// console.log(myCursor.objsLeftInBatch());
 	db.close();
 });
 
@@ -27,7 +27,7 @@ app.get('/', function(req, res) {
 	filename = 'homepage.html';
 
 	fs.readFile(filename, 'binary', function(err, file) {
-		if (err)
+		if (err)w
 		{
 			res.writeHead(500);
 			res.write(err + '\n');
