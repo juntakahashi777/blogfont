@@ -4,6 +4,7 @@ var sys = require('sys'),
 	url = require('url'),
 	fs = require('fs'),
 	express = require('express'),
+	bodyParser = require('body-parser'),
 	MongoClient = require('mongodb').MongoClient,
 	monk = require('monk'),
 	ObjectId = require('mongodb').ObjectID,
@@ -17,11 +18,11 @@ app.set('views', __dirname + '/');
 app.engine('html', engines.mustache);
 app.set('view engine', 'html');
 
-app.use("/handlers.js", express.static('handlers.js'));
 app.use(function(req, res, next) {
 	req.db = db;
 	next();
 });
+app.use(bodyParser.urlencoded( {extended: false}));
 
 MongoClient.connect(mongo_url, function(err, db) {
 	assert.equal(null, err);
@@ -40,6 +41,27 @@ app.get('/', function(req, res) {
 	});
 });
 
+app.get('/newpost', function(req, res) {
+	res.render('newpost');
+});
+
+app.post('/publish', function(req, res) {
+	var db = req.db;
+	var postBody = req.body.postBody;
+
+	var collection = db.get('test');
+	collection.insert({
+		"item": postBody
+	}, function (err, doc)
+	{
+		if (err) {
+			res.send("Problem occurred in publishing");
+		}
+		else {
+			res.redirect('/');
+		}
+	});
+});
 
 app.listen(8000, 'localhost');
 console.log('Server running at http://127.0.0.1:8000/');
