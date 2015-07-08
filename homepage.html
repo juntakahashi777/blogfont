@@ -1,9 +1,12 @@
 <head>
 <title>blogfont</title>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script type="text/javascript" src="./handlers.js"></script>
 </head>
 <body>
+	<div class="container">
+	<h1>Awesome Blog</h1>
     <form id="newPost">
         <textarea id="postBody" rows="4" cols="50"></textarea>
         </br>
@@ -12,4 +15,5 @@
     {{#db_entries}}
     <li>{{item}}</li>
     {{/db_entries}}
+    </div>
 </body>
