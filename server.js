@@ -14,10 +14,12 @@ app.use("/handlers.js", express.static('handlers.js'));
 MongoClient.connect(mongo_url, function(err, db) {
 	assert.equal(null, err);
 	console.log('connected to mongodb');
-	db.collection('test').insert(
-	{
-		item: "abc"
-	});
+	// db.collection('test').insert(
+	// {
+	// 	item: "abc"
+	// });
+	var myCursor = db.collection('test').find({},{item:1}).limit(1);
+	console.log(myCursor.objsLeftInBatch());
 	db.close();
 });
 
