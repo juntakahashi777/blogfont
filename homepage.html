@@ -9,4 +9,7 @@
         </br>
         <input type="submit" id="submitPost" value="Submit Post">
     </form>
+    {{#db_entries}}
+    <li>{{item}}</li>
+    {{/db_entries}}
 </body>
