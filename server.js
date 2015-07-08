@@ -45,6 +45,17 @@ app.get('/newpost', function(req, res) {
 	res.render('newpost');
 });
 
+app.get('/admin', function(req, res) {
+	res.render('adminPage');
+});
+
+app.get('/clearall', function(req, res) {
+	var db = req.db;
+	var collection = db.get('entries');
+	collection.remove({});
+	res.redirect('/');
+});
+
 app.post('/publish', function(req, res) {
 	var db = req.db;
 	var postBody = req.body.postBody;
@@ -63,5 +74,5 @@ app.post('/publish', function(req, res) {
 	});
 });
 
-app.listen(8000, 'localhost');
+app.listen(8000, '10.0.0.19');
 console.log('Server running at http://127.0.0.1:8000/');
