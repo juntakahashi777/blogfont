@@ -31,7 +31,7 @@ app.get('/', function(req, res) {
 	filename = 'homepage.html';
 
 	fs.readFile(filename, 'binary', function(err, file) {
-		if (err)w
+		if (err)
 		{
 			res.writeHead(500);
 			res.write(err + '\n');
