@@ -9,13 +9,13 @@ var sys = require('sys'),
 	monk = require('monk'),
 	ObjectId = require('mongodb').ObjectID,
 	assert = require('assert'),
-	mongo_url = 'mongodb://localhost:27017/entries',
-	engines = require('consolidate');
+	mongoUrl = 'mongodb://localhost:27017/entries',
+	consolidate = require('consolidate');
 var app = express();
-var db = monk(mongo_url);
+var db = monk(mongoUrl);
 
 app.set('views', __dirname + '/');
-app.engine('html', engines.mustache);
+app.engine('html', consolidate.mustache);
 app.set('view engine', 'html');
 
 app.use(function(req, res, next) {
@@ -24,7 +24,7 @@ app.use(function(req, res, next) {
 });
 app.use(bodyParser.urlencoded( {extended: false}));
 
-MongoClient.connect(mongo_url, function(err, db) {
+MongoClient.connect(mongoUrl, function(err, db) {
 	assert.equal(null, err);
 	console.log('connected to mongodb');
 });
@@ -74,5 +74,5 @@ app.post('/publish', function(req, res) {
 	});
 });
 
-app.listen(8000, '10.0.0.19');
+app.listen(8000, '0.0.0.0');
 console.log('Server running at http://127.0.0.1:8000/');
